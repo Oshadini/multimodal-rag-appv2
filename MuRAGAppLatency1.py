@@ -119,7 +119,7 @@ if uploaded_file is not None:
         combine_text_under_n_chars=2200,
         image_output_dir_path=image_path
     )
-  
+    image_path2 = "./figures"
     def list_files_in_folder(folder_path):
         """
         List all files and directories in the specified folder.
@@ -129,7 +129,7 @@ if uploaded_file is not None:
             return files
         else:
             return None
-    files = list_files_in_folder(image_path)
+    files = list_files_in_folder(image_path2)
     st.write(files)
 
     # Categorize elements by type
