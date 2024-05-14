@@ -131,6 +131,7 @@ if uploaded_file is not None:
             return None
     files = list_files_in_folder(image_path2)
     st.write(files)
+    st.image(files[0])
 
     # Categorize elements by type
     @st.cache_data(show_spinner=False)
