@@ -93,6 +93,7 @@ question = st.text_input('Enter a question')
 pr = st.button("Generate")
 
 if uploaded_file is not None:
+    vectorstore = Chroma(collection_name="mm_rag_mistral04",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
     if "pdf_elements" not in st.session_state:
         st.title("Extraction process:-")
         st.write(f"{bullet_point} Extraction process started")
@@ -475,7 +476,7 @@ if uploaded_file is not None:
     
     
     if pr==True:
-        vectorstore = Chroma(collection_name="mm_rag_mistral04",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
+        
         retriever_multi_vector_img=create_multi_vector_retriever(vectorstore,text_summaries,texts,table_summaries,tables,image_summaries,img_base64_list)
         chain_multimodal_rag = multi_modal_rag_chain(retriever_multi_vector_img)
         docs = retriever_multi_vector_img.get_relevant_documents(question, limit=1)
@@ -501,7 +502,7 @@ if uploaded_file is not None:
               #img = load_image(image_data)
               st.image(image_data)
               found_image = True  # Set the flag to True to indicate that an image has been found
-        client.delete_collection("mm_rag_mistral04")
+    client.delete_collection("mm_rag_mistral04")
           
     
     
