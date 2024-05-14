@@ -201,7 +201,8 @@ if uploaded_file is not None:
       return text_summaries, table_summaries
         
     text_summaries, table_summaries = generate_text_summaries(texts, tables, summarize_texts=True)
-    
+    st.write(text_summaries)
+    st.write(table_summaries)
  
      
                                                                                             
