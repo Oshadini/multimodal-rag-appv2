@@ -405,8 +405,8 @@ if uploaded_file is not None:
               b64_images.append(doc)
           else:
               texts.append(doc)
-      if len(b64_images) > 0:
-          return {"images": b64_images[:1], "texts": []}
+      #if len(b64_images) > 0:
+          #return {"images": b64_images[:1], "texts": []}
       return {"images": b64_images, "texts": texts}
     
     
