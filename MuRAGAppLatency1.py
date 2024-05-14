@@ -45,7 +45,7 @@ from PIL import Image
 from langchain.chat_models import ChatOpenAI
 from chromadb.config import Settings
 import chromadb
-
+from langchain.prompts import ChatPromptTemplate
 
 
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
