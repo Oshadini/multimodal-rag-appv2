@@ -96,48 +96,43 @@ pr = st.button("Generate")
 
 if uploaded_file is not None:
     
-    if "pdf_elements" not in st.session_state:
-        st.title("Extraction process:-")
-        st.write(f"{bullet_point} Extraction process started")
-        temp_file="./temp01.pdf"
-        with open(temp_file,"wb") as file:
-            file.write(uploaded_file.getvalue())
-       
-        image_path = "./"
+    
+    st.title("Extraction process:-")
+    st.write(f"{bullet_point} Extraction process started")
+    temp_file="./temp01.pdf"
+    with open(temp_file,"wb") as file:
+        file.write(uploaded_file.getvalue())
+   
+    image_path = "./"
 
-        #@st.cache_data(show_spinner=False)
-        def pdf_ele(image_path,ele_path):
-            pdf_elements = partition_pdf(
-                ele_path,
-                chunking_strategy="by_title",
-                #chunking_strategy="basic",
-                extract_images_in_pdf=True,
-                infer_table_structure=True,
-                strategy='hi_res',
-                max_characters=3200,
-                new_after_n_chars=3000,
-                combine_text_under_n_chars=2200,
-                image_output_dir_path=image_path
-            )
-            return pdf_elements
+    #@st.cache_data(show_spinner=False)
+    def pdf_ele(image_path,ele_path):
+        pdf_elements = partition_pdf(
+            ele_path,
+            chunking_strategy="by_title",
+            #chunking_strategy="basic",
+            extract_images_in_pdf=True,
+            infer_table_structure=True,
+            strategy='hi_res',
+            max_characters=3200,
+            new_after_n_chars=3000,
+            combine_text_under_n_chars=2200,
+            image_output_dir_path=image_path
+        )
+        return pdf_elements
         
-        pdf_elements = pdf_ele(image_path,temp_file)
-        st.session_state["pdf_elements"] = pdf_elements
-        st.write(f"{bullet_point} Extraction process completed")
-    else:
-        # st.write(f"{bullet_point} Extraction already done") 
-        pdf_elements = st.session_state["pdf_elements"]        
+       
 
     # Categorize elements by type
     #@st.cache_data(show_spinner=False)
-    def categorize_elements(_raw_pdf_elements):
+    def categorize_elements(raw_pdf_elements):
       """
       Categorize extracted elements from a PDF into tables and texts.
       raw_pdf_elements: List of unstructured.documents.elements
       """
       tables = []
       texts = []
-      for element in _raw_pdf_elements:
+      for element in raw_pdf_elements:
           if "unstructured.documents.elements.Table" in str(type(element)):
               tables.append(str(element))
           elif "unstructured.documents.elements.CompositeElement" in str(type(element)):
