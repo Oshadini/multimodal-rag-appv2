@@ -101,7 +101,7 @@ if uploaded_file is not None:
         file.write(uploaded_file.getvalue())
    
     image_path = "./"
-    image_path2 = "./figures"
+    
     #shutil.rmtree(image_path2)
     #st.success(f"Folder '{image_path2}' and its contents have been successfully removed.")
     def list_files_in_folder(folder_path):
@@ -496,6 +496,9 @@ if uploaded_file is not None:
               st.image(image_data)
               found_image = True  # Set the flag to True to indicate that an image has been found
         client.delete_collection("mm_rag_mistral04")
+    image_path2 = "./figures"
+    shutil.rmtree(image_path2)
+    st.success(f"Folder '{image_path2}' and its contents have been successfully removed.")
           
     
     
