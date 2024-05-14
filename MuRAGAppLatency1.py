@@ -442,6 +442,22 @@ if uploaded_file is not None:
               messages.append(image_message)
       return [HumanMessage(content=messages)]
 
+
+    # RAG part
+    template = """              "You are an AI scientist tasking with providing factual answers.\n"
+              "You will be given a mixed of text, tables, and image(s) usually of charts or graphs.\n"
+              "Use this information to provide answers related to the user question. \n"
+              "Final answer should be easily readable and structured. \n"
+    {context}
+    Question: {question}
+    """
+    prompt = ChatPromptTemplate.from_template(template)
+
+ 
+
+
+
+    
     def multi_modal_rag_chain(retriever):
         """
         Multi-modal RAG chain
@@ -461,13 +477,13 @@ if uploaded_file is not None:
         # RAG pipeline
         chain = (
             {
-                "context": retriever | RunnableLambda(split_image_text_types),
-                "question": RunnablePassthrough(),
+                {"context": retriever, "question": RunnablePassthrough()},
+            
             }
-            | RunnableLambda(img_prompt_func)
-            | model
-            | StrOutputParser()
-        )
+                | prompt
+                | model
+                | StrOutputParser()
+            )
 
         return chain
     
@@ -485,9 +501,9 @@ if uploaded_file is not None:
         docs = retriever_multi_vector_img.get_relevant_documents(question, limit=1)
         st.write(docs)
         processed_docs = split_image_text_types(docs)
-        st.write("Processed Documents:", processed_docs)
-        tt = img_prompt_func(processed_docs)
-        st.write("Processed Documents tt:", tt)
+        #st.write("Processed Documents:", processed_docs)
+        #tt = img_prompt_func(processed_docs)
+        #st.write("Processed Documents tt:", tt)
         response= chain_multimodal_rag.invoke(question)
         st.write(response)
     
