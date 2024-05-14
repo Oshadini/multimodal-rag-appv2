@@ -89,7 +89,7 @@ Multi-Modal RAG App with Multi Vector Retriever
 
 
 bullet_point = "◇"
-
+question = st.text_input('Enter a question')
 if uploaded_file is not None:
     if "pdf_elements" not in st.session_state:
         st.title("Extraction process:-")
@@ -471,7 +471,7 @@ if uploaded_file is not None:
     
      
     
-    question = st.text_input('Enter a question')
+    
     if st.button("Submit"): #if(question):
         vectorstore = Chroma(collection_name="mm_rag_mistral03",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
         retriever_multi_vector_img=create_multi_vector_retriever(vectorstore,text_summaries,texts,table_summaries,tables,image_summaries,img_base64_list)
