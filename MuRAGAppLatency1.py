@@ -294,8 +294,10 @@ if uploaded_file is not None:
     img_base64_list, image_summaries = generate_img_summaries(fpath)
 
     st.write(image_summaries)
-    
- 
+
+    shutil.rmtree(fpath)
+    st.success(f"Folder '{fpath}' and its contents have been successfully removed.")
+
     def create_multi_vector_retriever(
       vectorstore, text_summaries, texts, table_summaries, tables, image_summaries, images
     ):
@@ -496,9 +498,8 @@ if uploaded_file is not None:
               st.image(image_data)
               found_image = True  # Set the flag to True to indicate that an image has been found
         client.delete_collection("mm_rag_mistral04")
-    image_path2 = "./figures"
-    shutil.rmtree(image_path2)
-    st.success(f"Folder '{image_path2}' and its contents have been successfully removed.")
+    
+
           
     
     
