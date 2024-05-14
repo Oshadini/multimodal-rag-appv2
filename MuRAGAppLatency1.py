@@ -106,20 +106,20 @@ if uploaded_file is not None:
     image_path = "./"
 
     #@st.cache_data(show_spinner=False)
-    def pdf_ele(image_path,ele_path):
-        pdf_elements = partition_pdf(
-            ele_path,
-            chunking_strategy="by_title",
-            #chunking_strategy="basic",
-            extract_images_in_pdf=True,
-            infer_table_structure=True,
-            strategy='hi_res',
-            max_characters=3200,
-            new_after_n_chars=3000,
-            combine_text_under_n_chars=2200,
-            image_output_dir_path=image_path
-        )
-        return pdf_elements
+    
+    pdf_elements = partition_pdf(
+        ele_path,
+        chunking_strategy="by_title",
+        #chunking_strategy="basic",
+        extract_images_in_pdf=True,
+        infer_table_structure=True,
+        strategy='hi_res',
+        max_characters=3200,
+        new_after_n_chars=3000,
+        combine_text_under_n_chars=2200,
+        image_output_dir_path=image_path
+    )
+  
         
        
 
