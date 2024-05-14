@@ -311,13 +311,13 @@ if uploaded_file is not None:
       """
     
       # Initialize the storage layer
-      store = InMemoryStore()
+      store1 = InMemoryStore()
       id_key = "doc_id"
     
       # Create the multi-vector retriever
       retriever = MultiVectorRetriever(
           vectorstore=vectorstore,
-          docstore=store,
+          docstore=store1,
           id_key=id_key,
       )
       # Helper function to add documents to the vectorstore and docstore
