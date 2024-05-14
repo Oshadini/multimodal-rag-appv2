@@ -17,6 +17,7 @@ tensorflow-probability
 imageio 
 pillow
 ipython
+-U langchain-community
 
 
 
