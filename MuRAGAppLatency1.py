@@ -304,11 +304,18 @@ if uploaded_file is not None:
       """
       Create retriever that indexes summaries, but returns raw images or texts
       """
-    
+
+      if 'store' in st.session_state:
+        # Clear the existing store
+          st.session_state.store.clear_documents()
       # Initialize the storage layer
       store = InMemoryStore()
       id_key = "doc_id"
-    
+
+
+
+
+            
       # Create the multi-vector retriever
       retriever = MultiVectorRetriever(
           vectorstore=vectorstore,
