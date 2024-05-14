@@ -105,8 +105,8 @@ if uploaded_file is not None:
    
     image_path = "./"
     image_path2 = "./figures"
-    shutil.rmtree(image_path2)
-    st.success(f"Folder '{image_path2}' and its contents have been successfully removed.")
+    #shutil.rmtree(image_path2)
+    #st.success(f"Folder '{image_path2}' and its contents have been successfully removed.")
     def list_files_in_folder(folder_path):
         """
         List all files and directories in the specified folder.
