@@ -486,6 +486,8 @@ if uploaded_file is not None:
         st.write(docs)
         processed_docs = split_image_text_types(docs)
         st.write("Processed Documents:", processed_docs)
+        tt = img_prompt_func(processed_docs)
+        st.write("Processed Documents tt:", tt)
         response= chain_multimodal_rag.invoke(question)
         st.write(response)
     
