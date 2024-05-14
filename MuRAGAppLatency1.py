@@ -108,7 +108,7 @@ if uploaded_file is not None:
     #@st.cache_data(show_spinner=False)
     
     pdf_elements = partition_pdf(
-        ele_path,
+        temp_file,
         chunking_strategy="by_title",
         #chunking_strategy="basic",
         extract_images_in_pdf=True,
