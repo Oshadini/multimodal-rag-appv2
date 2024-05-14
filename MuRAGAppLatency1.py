@@ -269,7 +269,7 @@ if uploaded_file is not None:
         Give a concise summary of the image that is well optimized for retrieval."""
         
         # Apply to images
-        for img_file in os.listdir(path):
+        for img_file in sorted(os.listdir(path)):
             if img_file.endswith(".jpg"):
                 img_path = os.path.join(path, img_file)
                 base64_image = encode_image(img_path)
