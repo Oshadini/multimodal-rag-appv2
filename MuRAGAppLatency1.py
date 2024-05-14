@@ -104,7 +104,18 @@ if uploaded_file is not None:
         file.write(uploaded_file.getvalue())
    
     image_path = "./"
-
+    image_path2 = "./figures"
+    def list_files_in_folder(folder_path):
+        """
+        List all files and directories in the specified folder.
+            """
+        if os.path.exists(folder_path):
+            files = os.listdir(folder_path)
+            return files
+        else:
+            return None
+    files = list_files_in_folder(image_path2)
+    st.write(files)
     #@st.cache_data(show_spinner=False)
     
     pdf_elements = partition_pdf(
@@ -119,19 +130,8 @@ if uploaded_file is not None:
         combine_text_under_n_chars=2200,
         image_output_dir_path=image_path
     )
-    image_path2 = "./figures"
-    def list_files_in_folder(folder_path):
-        """
-        List all files and directories in the specified folder.
-            """
-        if os.path.exists(folder_path):
-            files = os.listdir(folder_path)
-            return files
-        else:
-            return None
-    files = list_files_in_folder(image_path2)
-    st.write(files)
-    st.image(files[0])
+
+  
 
     # Categorize elements by type
     @st.cache_data(show_spinner=False)
