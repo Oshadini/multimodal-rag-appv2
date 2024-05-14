@@ -121,14 +121,14 @@ if uploaded_file is not None:
     )
   
     def list_files_in_folder(folder_path):
-    """
-    List all files and directories in the specified folder.
-    """
-    if os.path.exists(folder_path):
-        files = os.listdir(folder_path)
-        return files
-    else:
-        return None
+        """
+        List all files and directories in the specified folder.
+            """
+        if os.path.exists(folder_path):
+            files = os.listdir(folder_path)
+            return files
+        else:
+            return None
     files = list_files_in_folder(image_path)
     st.write(files)
 
