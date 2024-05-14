@@ -124,7 +124,7 @@ if uploaded_file is not None:
        
 
     # Categorize elements by type
-    #@st.cache_data(show_spinner=False)
+    @st.cache_data(show_spinner=False)
     def categorize_elements(raw_pdf_elements):
       """
       Categorize extracted elements from a PDF into tables and texts.
@@ -141,22 +141,15 @@ if uploaded_file is not None:
 
     texts, tables = categorize_elements(pdf_elements)
 
-    if "texts" not in st.session_state or "tables" not in st.session_state:
-        # Create session state variables
-        with st.spinner("Categorizing Text & Table elements....."):
-            texts, tables = categorize_elements(pdf_elements)
-        st.session_state["texts"] = texts
-        st.session_state["tables"] = tables
-        st.write(f"{bullet_point} \t\tCategorize elements completed") 
-    else:
-        # Use already populated session state variables
-        texts = st.session_state["texts"]
-        tables = st.session_state["tables"]
+
+
+    
+  
     
     
 
     # Generate summaries of text elements
-    #@st.cache_data(show_spinner=False)
+    @st.cache_data(show_spinner=False)
     def generate_text_summaries(texts, tables, summarize_texts=False):
       """
       Summarize text elements
@@ -207,32 +200,20 @@ if uploaded_file is not None:
 
       return text_summaries, table_summaries
         
-
+    text_summaries, table_summaries = generate_text_summaries(texts, tables, summarize_texts=True)
     
-    if "text_summaries" not in st.session_state or "table_summaries" not in st.session_state:  
-        st.title("Summary generation process:-")
-        st.write(f"{bullet_point} Summary generation process started")   
-        # Create session state variables
-        with st.spinner("Generating Text & Table summaries....."):    
-            text_summaries, table_summaries = generate_text_summaries(texts, tables, summarize_texts=True)
-        st.session_state["text_summaries"] = text_summaries
-        st.session_state["table_summaries"] = table_summaries
-        st.write(f"{bullet_point} \t\tText & Table summaries generation completed")     
-    else:
-        # Use already populated session state variables
-        text_summaries = st.session_state["text_summaries"]
-        table_summaries = st.session_state["table_summaries"]
+ 
      
                                                                                             
     
     
 
-    #@st.cache_data(show_spinner=False)
+    @st.cache_data(show_spinner=False)
     def encode_image(image_path):
       """Getting the base64 string"""
       with open(image_path, "rb") as image_file:
           return base64.b64encode(image_file.read()).decode("utf-8")
-   # @st.cache_data(show_spinner=False)
+    @st.cache_data(show_spinner=False)
     def image_summarize(img_base64, prompt):
       """Make image summary"""
       if immage_sum_model == 'gpt-4-vision-preview':
@@ -259,7 +240,7 @@ if uploaded_file is not None:
       )
       return msg.content
     
-    #@st.cache_data(show_spinner=False)
+    @st.cache_data(show_spinner=False)
     def generate_img_summaries(path):
         """
         Generate summaries and base64 encoded strings for images
@@ -288,16 +269,10 @@ if uploaded_file is not None:
         return img_base64_list, image_summaries
 
     fpath= './figures'
-    if 'image_summaries' not in st.session_state:
-        with st.spinner("Generating Images summaries......"):
-            img_base64_list, image_summaries = generate_img_summaries(fpath)
 
-        st.session_state["img_base64_list"] = img_base64_list
-        st.session_state["image_summaries"] = image_summaries
-        st.write(f"{bullet_point} \t\tImage summaries generation completed") 
-    else:
-        img_base64_list = st.session_state["img_base64_list"]  
-        image_summaries = st.session_state["image_summaries"]  
+    img_base64_list, image_summaries = generate_img_summaries(fpath)
+
+    st.write(image_summaries)
     
  
     def create_multi_vector_retriever(
