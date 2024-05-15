@@ -474,16 +474,13 @@ if uploaded_file is not None:
             model = ChatOpenAI(model="gpt-4o", openai_api_key = openai.api_key, max_tokens=1024)
 
 
-        # RAG pipeline
+            # RAG pipeline
         chain = (
-            {
-                {"context": retriever, "question": RunnablePassthrough()},
-            
-            }
-                | prompt
-                | model
-                | StrOutputParser()
-            )
+            {"context": retriever, "question": RunnablePassthrough()}
+            | prompt
+            | model
+            | StrOutputParser()
+        )
 
         return chain
     
